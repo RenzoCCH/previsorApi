@@ -9,7 +9,7 @@ type QuizResponse = {
   quiz: QuizTaken;
 };
 
-router.get<{}, QuizResponse>("/", (req, res) => {
+router.get<object, QuizResponse>("/", (req, res) => {
   const quiz: QuizTaken = {
     id: 1,
     name: "Renzo Antonio",
@@ -78,7 +78,7 @@ router.get<{}, QuizResponse>("/", (req, res) => {
   };
 
   res.json({
-    message: "this is the quiz taken",
+    message: "this is the quiz taken lero leross",
     quiz,
   });
 });
