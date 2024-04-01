@@ -17,7 +17,12 @@
     "titleBar.activeBackground": "#123456",
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#12345699",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "editorGroup.border": "#1b4d80"
   },
-  "eslint.validate": ["javascript", "typescript"]
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "peacock.affectEditorGroupBorder": true
 }

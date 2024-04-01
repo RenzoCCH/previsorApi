@@ -76,7 +76,8 @@ router.get<object, QuizResponse>("/", (req, res) => {
     relativeScore: null,
     duration: null,
   };
-
+  // res.status(404);
+  // throw new Error('Not found');
   res.json({
     message: "this is the quiz taken lero leross",
     quiz,
