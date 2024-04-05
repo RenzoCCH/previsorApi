@@ -1,9 +1,7 @@
 export enum StudenStatus {
   NEW,
-  SUBSCRIBED,
-  STARTED,
+  PROGRESS,
   DISCONNECTED,
-  TO_REVIEW,
   FINISHED,
 }
 export enum QuestionType {

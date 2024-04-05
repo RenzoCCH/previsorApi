@@ -75,13 +75,17 @@ router.get<object, QuizResponse>("/", (req, res) => {
     relativeTotal: null,
     relativeScore: null,
     duration: null,
+    title: "this Test title",
+    language: "en",
   };
   // res.status(404);
   // throw new Error('Not found');
+  // setTimeout(() => {
   res.json({
     message: "this is the quiz taken lero leross",
     quiz,
   });
+  // }, 10000);
 });
 
 export default router;
