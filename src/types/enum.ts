@@ -1,15 +1,15 @@
 export enum StudenStatus {
-  NEW,
-  PROGRESS,
-  DISCONNECTED,
-  FINISHED,
+  NEW = "NEW",
+  PROGRESS = "PROGRESS",
+  DISCONNECTED = "DISCONNECTED",
+  FINISHED = "FINISHED",
 }
 export enum QuestionType {
-  MULTICHOICE,
-  PARAGRAPH,
+  MULTICHOICE = "MULTICHOICE",
+  PARAGRAPH = "PARAGRAPH",
 }
 export enum QuestionStatus {
-  NOT_VIEWED,
-  VIEWED,
-  SKIPPED,
+  NOT_VIEWED = "NOT_VIEWED",
+  VIEWED = "VIEWED",
+  SKIPPED = "SKIPPED",
 }

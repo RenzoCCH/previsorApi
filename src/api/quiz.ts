@@ -62,7 +62,7 @@ router.get<object, QuizResponse>("/", (req, res) => {
     ],
     score: 0,
     email: "renzocallachavez@gmail.com",
-    studentStatus: StudenStatus.NEW,
+    studentStatus: StudenStatus.PROGRESS,
     quizId: 0,
     studentId: 0,
     live: false,
