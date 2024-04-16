@@ -9,9 +9,11 @@ type QuizResponse = {
   quiz: QuizTaken;
 };
 
-router.get<object, QuizResponse>("/", (req, res) => {
+router.get<object, QuizResponse>("/:quizId", (req, res) => {
+  const { quizId } = req.params as { quizId: string };
+
   const quiz: QuizTaken = {
-    id: 1,
+    id: quizId,
     name: "Renzo Antonio",
     lastName: "Calla Chavez",
     questions: [
@@ -19,9 +21,10 @@ router.get<object, QuizResponse>("/", (req, res) => {
         id: 1,
         type: QuestionType.PARAGRAPH,
         question: "this is the first quesiton?",
+        response: "response laksjdfl",
         points: 1,
         status: QuestionStatus.NOT_VIEWED,
-        required: false,
+        required: true,
       },
       {
         id: 2,
@@ -41,7 +44,7 @@ router.get<object, QuizResponse>("/", (req, res) => {
             checked: false,
           },
           {
-            id: 11,
+            id: 13,
             option: "This is the fourth option",
             isCorrect: false,
             checked: false,
@@ -62,7 +65,7 @@ router.get<object, QuizResponse>("/", (req, res) => {
     ],
     score: 0,
     email: "renzocallachavez@gmail.com",
-    studentStatus: StudenStatus.PROGRESS,
+    studentStatus: StudenStatus.NEW,
     quizId: 0,
     studentId: 0,
     live: false,
