@@ -1,3 +1,119 @@
 type Query {
-  greeting: String
+  quizTaken: QuizTaken
+}
+
+"""
+Represetns a quiz Taken by a studen
+"""
+type QuizTaken {
+  id: ID!
+  """
+  This is the name of the student
+  """
+  name: String
+  lastName: String
+  questions: [Question!]!
+  """
+  The score of the taken quiz
+  """
+  score: Int
+  email: String
+  """
+  The status of the quiz:
+  - NEW : The student has not started the quiz
+  - PROGRESS: The student has started the quiz
+  - DISCONNECTED: The studend did not complete the quiz
+  - FINISEHD: The studen finisehd the quiz
+  """
+  studentStatus: String
+  """
+  The id of the root quiz that the student is taking
+  """
+  quizId: Int!
+  studentId: Int!
+  """
+  If the quiz will send data through websockets
+  """
+  live: Boolean
+  """
+  The Maximun amount of points
+  """
+  total: Int
+  currentQuestion: Int
+  """
+  The Date when the quiz was started
+  """
+  dateStarted: String
+  """
+  The Date when the quiz was taken
+  """
+  dateCreated: String
+  """
+  The Date when the quiz was last updated
+  """
+  dateUpdated: String
+  """
+  The Date when the quiz was finished
+  """
+  dateFinished: String
+  """
+  The sumatory of the questions total points
+  """
+  relativeTotal: Int
+  """
+  The sumatory of the questions correct points
+  """
+  relativeScore: Int
+  """
+  The duraton in minutes if the quiz has set to time
+  """
+  duration: Int
+  title: String
+  """
+  Language: en = english, es = spanish
+  """
+  language: String
+}
+
+type Question {
+  id: ID
+  """
+  The type of quesiotn: Multichoice, Paragraph
+  """
+  type: String
+  """
+  The question it self
+  """
+  question: String
+  """
+  The options if quextion if Multichioce
+  """
+  options: [Option]
+  """
+  The response if question is Paragraph
+  """
+  response: String
+  isCorrect: Boolean
+  """
+  The maximun amount of points this question has
+  """
+  points: Int
+  progress: Int
+  """
+  If a particular question has a specific time
+  """
+  time: Int
+  status: String
+  required: Boolean
+  """
+  The amount of points scored
+  """
+  score: Int
+}
+
+type Option {
+  id: ID
+  option: String
+  isCorrect: Boolean
+  checked: Boolean
 }
