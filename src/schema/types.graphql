@@ -1,0 +1,85 @@
+type Question {
+  id: ID
+  """
+  The type of quesiotn: Multichoice, Paragraph
+  """
+  type: String
+  """
+  The question it self
+  """
+  question: String
+  """
+  The options if quextion if Multichioce
+  """
+  options: [Option]
+  """
+  The response if question is Paragraph
+  """
+  response: String
+  isCorrect: Boolean
+  """
+  The maximun amount of points this question has
+  """
+  points: Int
+  progress: Int
+  """
+  If a particular question has a specific time
+  """
+  time: Int
+  status: String
+  required: Boolean
+  """
+  The amount of points scored
+  """
+  score: Int
+}
+
+type Option {
+  id: ID
+  option: String
+  isCorrect: Boolean
+  checked: Boolean
+}
+
+type User {
+  id: ID
+  name: String
+  lastName: String
+  email: String
+  last20quiz: [String]
+  dateCreated: String
+  dateUpdated: String
+  isAnonymous: Boolean
+}
+
+input QuestionInput {
+  id: ID
+  type: String!
+  question: String!
+  options: [OptionInput]
+  response: String
+  isCorrect: Boolean
+  points: Int
+  progress: Int
+  time: Int
+  status: String
+  required: Boolean
+  score: Int
+}
+input OptionInput {
+  id: ID
+  option: String
+  isCorrect: Boolean
+  checked: Boolean
+}
+
+input UserInput {
+  id: ID
+  name: String
+  lastName: String
+  email: String
+  last20quiz: [String]
+  dateCreated: String
+  dateUpdated: String
+  isAnonymous: Boolean
+}

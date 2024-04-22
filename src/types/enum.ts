@@ -1,3 +1,11 @@
+export enum QuizStatus {
+  DRAFT = "DRAFT",
+  CREATED = "CREATED",
+  STARTED = "STARTED",
+  TO_QUALIFY = "TO_QUALIFY",
+  FINISHED = "FINISHED",
+}
+
 export enum StudenStatus {
   NEW = "NEW",
   PROGRESS = "PROGRESS",

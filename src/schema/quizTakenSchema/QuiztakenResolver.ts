@@ -1,20 +1,16 @@
-import express from "express";
-import { QuizTaken } from "../types/quiz/quizTaken";
-import { QuestionStatus, QuestionType, StudenStatus } from "../types/enum";
-import { QuestionMultichoice, QuestionParagrah } from "../types/quiz/question";
-
-const router = express.Router();
-
-type QuizResponse = {
-  message: string;
-  quiz: QuizTaken;
+import QuizTaken from "../../models/quizTaken";
+import { QuestionStatus, QuestionType, StudenStatus } from "../../types/enum";
+import { QuestionMultichoice } from "../../types/quiz/question";
+import { QuizTaken as QuizTakenType } from "../../types/quiz/quizTaken";
+type quizTakenArgs = {
+  id: string;
 };
-
-router.get<object, QuizResponse>("/:quizId", (req, res) => {
-  const { quizId } = req.params as { quizId: string };
-
-  const quiz: QuizTaken = {
-    id: quizId,
+// @ts-expect-error _first argument not used
+const quizTakenResolver = async (_, args: quizTakenArgs) => {
+  console.log("args", args);
+  // ask if a quiz exists, we need the token of the quiz
+  const quiz: QuizTakenType = {
+    id: args.id,
     name: "Renzo Antonio",
     lastName: "Calla Chavez",
     questions: [
@@ -58,36 +54,7 @@ router.get<object, QuizResponse>("/:quizId", (req, res) => {
       {
         id: 3,
         type: QuestionType.PARAGRAPH,
-        question: "this is the third quesiton?",
-        response: "response laksjdfl",
-        points: 1,
-        status: QuestionStatus.NOT_VIEWED,
-        required: false,
-      } as QuestionParagrah,
-      {
-        id: 4,
-        type: QuestionType.MULTICHOICE,
-        question: "this is the second question?",
-        options: [
-          {
-            id: 11,
-            option: "This is the first option",
-            isCorrect: false,
-            checked: false,
-          },
-          {
-            id: 12,
-            option: "This is the thids optoin",
-            isCorrect: true,
-            checked: false,
-          },
-          {
-            id: 13,
-            option: "This is the fourth option",
-            isCorrect: false,
-            checked: false,
-          },
-        ],
+        question: "This is the htird question?",
         points: 1,
         status: QuestionStatus.NOT_VIEWED,
         required: false,
@@ -111,14 +78,25 @@ router.get<object, QuizResponse>("/:quizId", (req, res) => {
     title: "this Test title",
     language: "en",
   };
-  // res.status(404);
-  // throw new Error('Not found');
-  // setTimeout(() => {
-  res.json({
-    message: "this is the quiz taken lero leross",
-    quiz,
-  });
-  // }, 10000);
-});
+  // create a quiz based on this existing quiz
+  const qTaken = new QuizTaken(quiz);
+  await qTaken.save();
 
-export default router;
+  // throw new GraphQLError("No Quiz found with id " + args.id, {
+  //   extensions: {
+  //     code: "NOT_FOUND",
+  //   },
+  // });
+
+  return quiz;
+};
+
+export const dateCreated = (date: QuizTakenType) => {
+  console.log("this is the date", date.dateCreated);
+  if (date.dateCreated) {
+    return date.dateCreated.toISOString();
+  }
+  return date.dateCreated;
+};
+
+export default quizTakenResolver;

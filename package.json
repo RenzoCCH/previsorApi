@@ -23,6 +23,7 @@
     "helmet": "^7.1.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "mongoose": "^8.3.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

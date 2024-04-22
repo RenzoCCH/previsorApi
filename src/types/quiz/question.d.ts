@@ -1,14 +1,21 @@
-export interface Question {
+interface QuestionBase {
   id: number;
-  type: QuestionType;
   question: string;
-  options?: Option[];
-  response?: string;
   isCorrect?: boolean;
-  points: number;
+  points?: number;
   progress?: number;
   time?: number;
-  status: QuestionStatus;
-  required: boolean;
+  status?: QuestionStatus;
+  required?: boolean;
   score?: number;
 }
+
+export interface QuestionParagrah extends QuestionBase {
+  type: QuestionType.PARAGRAPH;
+  response: string;
+}
+export interface QuestionMultichoice extends QuestionBase {
+  type: QuestionType.MULTICHOICE;
+  options: Option[];
+}
+export type Question = QuestionParagrah | QuestionMultichoice;

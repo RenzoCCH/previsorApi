@@ -1,0 +1,43 @@
+type Quiz {
+  id: ID
+  title: String!
+  quizStatus: String
+  dateCreated: String
+  questions: [Question!]!
+  classId: String
+  registrationLink: String
+  professor: User
+  time: Int
+  dateStarted: String
+  generalProgress: Int
+  generalScore: Int
+  className: String
+  total: Int
+  relativeTotal: Int
+  students: [User]
+  dateUpdated: String
+  dateFinalized: String
+  duration: Int
+}
+
+input QuizInput {
+  id: ID
+  title: String!
+  quizStatus: String
+  dateCreated: String
+  questions: [QuestionInput!]!
+  classId: String
+  registrationLink: String
+  professor: UserInput
+  time: Int
+  dateStarted: String
+  generalProgress: Int
+  generalScore: Int
+  className: String
+  total: Int
+  relativeTotal: Int
+  students: [UserInput]
+  dateUpdated: String
+  dateFinalized: String
+  duration: Int
+}
