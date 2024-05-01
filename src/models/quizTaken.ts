@@ -4,7 +4,6 @@ import { StudenStatus } from "../types/enum";
 import Question from "./question";
 
 const quizTaken = new Schema<QuizTaken>({
-  id: { type: String, required: true },
   name: String,
   lastName: String,
   questions: [Question],

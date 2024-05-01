@@ -2,7 +2,6 @@ type Quiz {
   id: ID
   title: String!
   quizStatus: String
-  dateCreated: String
   questions: [Question!]!
   classId: String
   registrationLink: String
@@ -14,17 +13,17 @@ type Quiz {
   className: String
   total: Int
   relativeTotal: Int
-  students: [User]
-  dateUpdated: String
+  students: [UserInvite]
   dateFinalized: String
   duration: Int
+  createdAt: String
+  updatedAt: String
 }
 
 input QuizInput {
   id: ID
   title: String!
   quizStatus: String
-  dateCreated: String
   questions: [QuestionInput!]!
   classId: String
   registrationLink: String
@@ -36,8 +35,7 @@ input QuizInput {
   className: String
   total: Int
   relativeTotal: Int
-  students: [UserInput]
-  dateUpdated: String
+  students: [UserInviteInput]
   dateFinalized: String
   duration: Int
 }

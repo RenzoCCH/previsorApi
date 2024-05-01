@@ -1,9 +1,9 @@
 type Question {
-  id: ID
+  id: Int
   """
   The type of quesiotn: Multichoice, Paragraph
   """
-  type: String
+  type: String!
   """
   The question it self
   """
@@ -35,8 +35,8 @@ type Question {
 }
 
 type Option {
-  id: ID
-  option: String
+  id: Int!
+  option: String!
   isCorrect: Boolean
   checked: Boolean
 }
@@ -52,8 +52,15 @@ type User {
   isAnonymous: Boolean
 }
 
-input QuestionInput {
+type UserInvite {
   id: ID
+  quizId: String
+  userMail: String
+  userId: String
+}
+
+input QuestionInput {
+  id: Int!
   type: String!
   question: String!
   options: [OptionInput]
@@ -67,8 +74,8 @@ input QuestionInput {
   score: Int
 }
 input OptionInput {
-  id: ID
-  option: String
+  id: Int!
+  option: String!
   isCorrect: Boolean
   checked: Boolean
 }
@@ -82,4 +89,8 @@ input UserInput {
   dateCreated: String
   dateUpdated: String
   isAnonymous: Boolean
+}
+
+input UserInviteInput {
+  userMail: String!
 }

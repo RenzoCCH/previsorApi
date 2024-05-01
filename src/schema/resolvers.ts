@@ -1,6 +1,6 @@
 import { createQuizResolver } from "./quizSchema/QuizResolver";
 import quizTakenResolver, {
-  dateCreated,
+  createdAt,
 } from "./quizTakenSchema/QuiztakenResolver";
 
 export const resolvers = {
@@ -11,6 +11,6 @@ export const resolvers = {
     createQuiz: createQuizResolver,
   },
   QuizTaken: {
-    dateCreated,
+    createdAt,
   },
 };

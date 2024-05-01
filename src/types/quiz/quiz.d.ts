@@ -1,8 +1,10 @@
+import { UserInvite } from "./userInvite";
+
 export interface Quiz {
   id: string;
   title: string;
   quizStatus: QuizStatus;
-  dateCreated?: Date;
+  createdAt?: Date;
   questions: Question[];
   classId?: string;
   registrationLink?: string;
@@ -14,8 +16,8 @@ export interface Quiz {
   className?: string;
   total?: number;
   relativeTotal?: number;
-  students?: User[];
-  dateUpdated?: Date;
+  students?: UserInvite[];
+  updatedAt?: Date;
   dateFinalized?: Date;
   duration?: number;
 }

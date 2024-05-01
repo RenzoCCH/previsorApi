@@ -3,6 +3,7 @@ import { Quiz as QuizType } from "../types/quiz/quiz";
 import { QuizStatus } from "../types/enum";
 import Question from "./question";
 import User from "./user";
+import UserInvite from "./userInvite";
 
 const quiz = new Schema<QuizType>(
   {
@@ -29,7 +30,7 @@ const quiz = new Schema<QuizType>(
     className: String,
     total: Number,
     relativeTotal: Number,
-    students: [{ type: User, required: false }],
+    students: { type: [UserInvite], required: false, default: undefined },
     dateFinalized: Date,
     duration: Number,
   },

@@ -43,11 +43,11 @@ type QuizTaken {
   """
   The Date when the quiz was taken
   """
-  dateCreated: String
+  createdAt: String
   """
   The Date when the quiz was last updated
   """
-  dateUpdated: String
+  updatedAt: String
   """
   The Date when the quiz was finished
   """

@@ -8,6 +8,10 @@ type quizTakenArgs = {
 // @ts-expect-error _first argument not used
 const quizTakenResolver = async (_, args: quizTakenArgs) => {
   console.log("args", args);
+
+  //get Quiz,
+  //analyze if quiz not closed
+  //
   // ask if a quiz exists, we need the token of the quiz
   const quiz: QuizTakenType = {
     id: args.id,
@@ -69,8 +73,8 @@ const quizTakenResolver = async (_, args: quizTakenArgs) => {
     total: 0,
     currentQuestion: 0,
     dateStarted: null,
-    dateCreated: new Date(),
-    dateUpdated: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
     dateFinished: null,
     relativeTotal: null,
     relativeScore: null,
@@ -82,21 +86,15 @@ const quizTakenResolver = async (_, args: quizTakenArgs) => {
   const qTaken = new QuizTaken(quiz);
   await qTaken.save();
 
-  // throw new GraphQLError("No Quiz found with id " + args.id, {
-  //   extensions: {
-  //     code: "NOT_FOUND",
-  //   },
-  // });
-
   return quiz;
 };
 
-export const dateCreated = (date: QuizTakenType) => {
-  console.log("this is the date", date.dateCreated);
-  if (date.dateCreated) {
-    return date.dateCreated.toISOString();
-  }
-  return date.dateCreated;
+export const createdAt = (date: QuizTakenType) => {
+  // console.log("this is the date", date.dateCreated);
+  // if (date.dateCreated) {
+  //   return date.dateCreated.toISOString();
+  // }
+  return date.createdAt;
 };
 
 export default quizTakenResolver;

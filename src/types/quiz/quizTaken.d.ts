@@ -15,8 +15,8 @@ export interface QuizTaken {
   total?: number;
   currentQuestion: number;
   dateStarted?: Date | null;
-  dateCreated?: Date | null;
-  dateUpdated?: Date | null;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
   dateFinished?: Date | null;
   relativeTotal?: number | null;
   relativeScore?: number | null;
