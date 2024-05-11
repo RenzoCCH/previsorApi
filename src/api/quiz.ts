@@ -14,7 +14,7 @@ router.get<object, QuizResponse>("/:quizId", (req, res) => {
   const { quizId } = req.params as { quizId: string };
 
   const quiz: QuizTaken = {
-    id: quizId,
+    _id: quizId,
     name: "Renzo Antonio",
     lastName: "Calla Chavez",
     questions: [
@@ -96,7 +96,7 @@ router.get<object, QuizResponse>("/:quizId", (req, res) => {
     score: 0,
     email: "renzocallachavez@gmail.com",
     studentStatus: StudenStatus.NEW,
-    quizId: 0,
+    quizId: '0',
     studentId: 0,
     live: false,
     total: 0,

@@ -1,5 +1,5 @@
 export interface UserInvite {
-  quizId: string;
+  quizTakenId: string;
   userMail: string;
   userId?: string;
 }

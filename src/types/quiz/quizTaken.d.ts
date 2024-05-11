@@ -2,14 +2,14 @@ import { StudenStatus } from "../enum";
 import { Question } from "./question";
 
 export interface QuizTaken {
-  id: string;
+  _id: string;
   name?: string;
   lastName?: string;
   questions: Question[];
   score?: number;
   email?: string;
   studentStatus: StudenStatus;
-  quizId: number;
+  quizId: string;
   studentId?: number;
   live?: boolean;
   total?: number;

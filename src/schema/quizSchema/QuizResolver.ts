@@ -12,6 +12,13 @@ export const createQuizResolver = async (_, args: argsType) => {
   const { title, questions, students } = args.quiz;
   const newId = new mongoose.mongo.ObjectId();
 
+  // add random Id for every student
+  if (students) {
+    for (const student of students) {
+      student.quizTakenId = new mongoose.mongo.ObjectId().toString();
+    }
+  }
+
   validateQuestions(questions);
   // create the quiz
   const q = new Quiz({

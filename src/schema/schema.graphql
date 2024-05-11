@@ -1,7 +1,14 @@
 type Query {
-  quizTaken(id: ID!): QuizTaken
+  quizTaken(quizId: ID!, id: ID!): QuizTaken
 }
 
 type Mutation {
   createQuiz(quiz: QuizInput!): Quiz
+  startQuizTaken(quizTakenId: ID!): QuizTaken
+  saveAnswerQuizTaken(
+    quizTakenId: ID!
+    questionId: Int!
+    options: [OptionInput]
+    answer: String
+  ): QuizTaken
 }

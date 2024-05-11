@@ -1,92 +1,98 @@
+import { GraphQLError } from "graphql";
+import Quiz from "../../models/quiz";
 import QuizTaken from "../../models/quizTaken";
-import { QuestionStatus, QuestionType, StudenStatus } from "../../types/enum";
-import { QuestionMultichoice } from "../../types/quiz/question";
 import { QuizTaken as QuizTakenType } from "../../types/quiz/quizTaken";
+import {
+  isMultichoiceQuestion,
+  validateFinished,
+} from "../../utils/quizValidation";
+import { QuestionType, StudenStatus } from "../../types/enum";
+import { Option } from "../../types/quiz/option";
+import { log } from "console";
+
 type quizTakenArgs = {
   id: string;
+  quizId: string;
 };
 // @ts-expect-error _first argument not used
-const quizTakenResolver = async (_, args: quizTakenArgs) => {
-  console.log("args", args);
+const quizTakenResolver = async (_, { quizId, id }: quizTakenArgs) => {
+  let quizTaken = await QuizTaken.findById(id).exec();
 
-  //get Quiz,
-  //analyze if quiz not closed
-  //
-  // ask if a quiz exists, we need the token of the quiz
-  const quiz: QuizTakenType = {
-    id: args.id,
-    name: "Renzo Antonio",
-    lastName: "Calla Chavez",
-    questions: [
-      {
-        id: 1,
-        type: QuestionType.PARAGRAPH,
-        question: "this is the first quesiton?",
-        response: "response laksjdfl",
-        points: 1,
-        status: QuestionStatus.NOT_VIEWED,
-        required: true,
+  if (quizTaken) {
+    return quizTaken;
+  }
+  const quiz = await Quiz.findById(quizId).exec();
+  if (!quiz) {
+    throw new GraphQLError("The quiz does not exist.", {
+      extensions: {
+        code: "BAD_REQUEST",
       },
-      {
-        id: 2,
-        type: QuestionType.MULTICHOICE,
-        question: "this is the second question?",
-        options: [
-          {
-            id: 11,
-            option: "This is the first option",
-            isCorrect: false,
-            checked: false,
-          },
-          {
-            id: 12,
-            option: "This is the thids optoin",
-            isCorrect: true,
-            checked: false,
-          },
-          {
-            id: 13,
-            option: "This is the fourth option",
-            isCorrect: false,
-            checked: false,
-          },
-        ],
-        points: 1,
-        status: QuestionStatus.NOT_VIEWED,
-        required: false,
-      },
-      {
-        id: 3,
-        type: QuestionType.PARAGRAPH,
-        question: "This is the htird question?",
-        points: 1,
-        status: QuestionStatus.NOT_VIEWED,
-        required: false,
-      } as QuestionMultichoice,
-    ],
-    score: 0,
-    email: "renzocallachavez@gmail.com",
+    });
+  }
+
+  validateFinished(quiz);
+  const newQuiz: Partial<QuizTakenType> = {
     studentStatus: StudenStatus.NEW,
-    quizId: 0,
-    studentId: 0,
-    live: false,
-    total: 0,
-    currentQuestion: 0,
-    dateStarted: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    dateFinished: null,
-    relativeTotal: null,
-    relativeScore: null,
-    duration: null,
-    title: "this Test title",
-    language: "en",
+    quizId,
   };
-  // create a quiz based on this existing quiz
-  const qTaken = new QuizTaken(quiz);
-  await qTaken.save();
+  if (quiz.questions) newQuiz.questions = quiz.questions;
+  if (quiz.title) newQuiz.title = quiz.title;
+  quizTaken = new QuizTaken(newQuiz);
+  quizTaken._id = id;
+  await quizTaken.save();
+  return quizTaken;
+};
+type startQuizArgs = {
+  quizTakenId: string;
+};
+// @ts-expect-error _first argument not used
+export const startQuizTaken = async (_, { quizTakenId }: startQuizArgs) => {
+  const quizTaken = await QuizTaken.findOneAndUpdate(
+    { _id: quizTakenId },
+    {
+      studentStatus: StudenStatus.PROGRESS,
+      dateStarted: new Date(),
+    },
+    {
+      new: true,
+    }
+  );
+  return quizTaken;
+};
+interface saveAnswer {
+  quizTakenId: string;
+  questionId: number;
+  answer?: string;
+  options?: Option[];
+  type: QuestionType.PARAGRAPH;
+}
 
-  return quiz;
+export const saveAnswerQuizTaken = async (
+  // @ts-expect-error _first argument not used
+  _,
+  { quizTakenId, questionId, options, answer, type }: saveAnswer
+) => {
+  console.log("is here??");
+
+  const quizTaken = await QuizTaken.findById(quizTakenId).exec();
+
+  if (!quizTaken) {
+    throw new GraphQLError("The quiz does not exist.", {
+      extensions: {
+        code: "BAD_REQUEST",
+      },
+    });
+  }
+  const questionIndex = quizTaken?.questions.findIndex(
+    (q) => q.id === questionId
+  );
+  const question = quizTaken.questions[questionIndex];
+  console.log("options", options);
+
+  if (isMultichoiceQuestion(question) && options) {
+    question.options = options;
+  }
+  console.log("this is the question", quizTaken);
 };
 
 export const createdAt = (date: QuizTakenType) => {

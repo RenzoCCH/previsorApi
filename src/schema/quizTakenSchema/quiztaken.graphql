@@ -25,8 +25,8 @@ type QuizTaken {
   """
   The id of the root quiz that the student is taking
   """
-  quizId: Int!
-  studentId: Int!
+  quizId: String!
+  studentId: String
   """
   If the quiz will send data through websockets
   """

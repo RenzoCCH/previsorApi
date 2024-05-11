@@ -1,6 +1,8 @@
 import { createQuizResolver } from "./quizSchema/QuizResolver";
 import quizTakenResolver, {
   createdAt,
+  saveAnswerQuizTaken,
+  startQuizTaken,
 } from "./quizTakenSchema/QuiztakenResolver";
 
 export const resolvers = {
@@ -9,6 +11,8 @@ export const resolvers = {
   },
   Mutation: {
     createQuiz: createQuizResolver,
+    startQuizTaken: startQuizTaken,
+    saveAnswerQuizTaken: saveAnswerQuizTaken,
   },
   QuizTaken: {
     createdAt,

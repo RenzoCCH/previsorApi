@@ -1,6 +1,7 @@
 import { GraphQLError } from "graphql";
 import { Question, QuestionMultichoice } from "../types/quiz/question";
-import { QuestionType } from "../types/enum";
+import { QuestionType, QuizStatus } from "../types/enum";
+import { Quiz } from "../types/quiz/quiz";
 
 export const validateQuestions = (questions: Question[]) => {
   if (!questions.length) {
@@ -27,12 +28,22 @@ export const validateQuestions = (questions: Question[]) => {
             extensions: {
               code: "BAD_REQUEST",
             },
-          },
+          }
         );
       }
     }
   }
 };
+
+export function validateFinished(quiz: Quiz) {
+  if (quiz.quizStatus === QuizStatus.FINISHED) {
+    throw new GraphQLError(`Quiz with id ${quiz.id} has already finished`, {
+      extensions: {
+        code: "BAD_REQUEST",
+      },
+    });
+  }
+}
 
 export function isMultichoiceQuestion(q: Question): q is QuestionMultichoice {
   return q.type === QuestionType.MULTICHOICE;
